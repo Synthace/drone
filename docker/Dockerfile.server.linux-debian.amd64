@@ -1,5 +1,6 @@
 # docker build --rm -f docker/Dockerfile -t drone/drone .
 
+
 FROM debian:buster-slim
 EXPOSE 80 443
 VOLUME /data
@@ -15,5 +16,6 @@ ENV DRONE_SERVER_HOST=localhost
 ENV DRONE_DATADOG_ENABLED=true
 ENV DRONE_DATADOG_ENDPOINT=https://stats.drone.ci/api/v1/series
 
+RUN apt-get -q update && apt-get install -q ca-certificates
 ADD release/linux/amd64/drone-server /bin/
 ENTRYPOINT ["/bin/drone-server"]
