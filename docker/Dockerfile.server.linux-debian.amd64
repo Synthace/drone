@@ -16,6 +16,6 @@ ENV DRONE_SERVER_HOST=localhost
 ENV DRONE_DATADOG_ENABLED=true
 ENV DRONE_DATADOG_ENDPOINT=https://stats.drone.ci/api/v1/series
 
-RUN apt-get -q update && apt-get install -q ca-certificates pgloader
+RUN apt-get -q update && apt-get install -q -y ca-certificates pgloader
 ADD release/linux/amd64/drone-server /bin/
 ENTRYPOINT ["/bin/drone-server"]
