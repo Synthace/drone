@@ -24,12 +24,27 @@ steps:
     GOARCH: amd64
     GOOS: linux
 
-- name: publish
+- name: publish-alpine
   image: plugins/gcr
   settings:
-    auto_tag: true
-    auto_tag_suffix: linux-amd64
+    tags: 
+      - alpine
     dockerfile: docker/Dockerfile.server.linux.amd64
+    json_key:
+      from_secret: google_credentials
+    registry: eu.gcr.io
+    repo: eu.gcr.io/antha-images/drone
+  when:
+    event:
+    - push
+    - tag
+
+- name: publish-debian
+  image: plugins/gcr
+  settings:
+    tags:
+      - debian
+    dockerfile: docker/Dockerfile.server.linux-debian.amd64
     json_key:
       from_secret: google_credentials
     registry: eu.gcr.io
